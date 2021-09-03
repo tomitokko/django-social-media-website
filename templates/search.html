@@ -1,0 +1,390 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="favicon.png" rel="icon" type="image/png">
+    <title>Search</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+            <form action="search" method="POST">
+            {% csrf_token %}
+            <header style="margin-top: -23px;">
+                <div class="header_inner">
+                    <div class="left-side">
+                        <!-- Logo -->
+                        <div id="logo" class=" uk-hidden@s">
+                            <a href="/">
+                                <!-- <b><h1 style="text-transform: uppercase;">Social Book</h1></b> -->
+                            </a>
+                        </div>
+
+                        <!--<div class="triger" uk-toggle="target: #wrapper ; cls: sidebar-active">
+                            <i class="uil-bars"></i>
+                        </div>-->
+
+                        <!-- <div class="header_search"> -->
+                            
+                                <input type="text" name="username" placeholder="Search for username..">&nbsp; &nbsp;
+                                <button type="submit"><i class="fa fa-search fa-1x"></i></button>
+                            
+                            <!-- <div class="icon-search">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div> -->
+                        <!-- </div> -->
+
+                    </div>
+                    <div class="right-side lg:pr-4">
+                        <!-- welcome user -->
+                        <a href="#" class="">
+                            Welcome <b name="" class="">{{user.username}}&nbsp; &nbsp; &nbsp;</b>
+                        </a>
+
+                         <!-- upload -->
+                        <a href="#"
+                            class="bg-pink-500 flex font-bold hidden hover:bg-pink-600 hover:text-white inline-block items-center lg:block max-h-10 mr-4 px-4 py-2 rounded shado text-white">
+                            <ion-icon name="add-circle" class="-mb-1
+                             mr-1 opacity-90 text-xl uilus-circle"></ion-icon> New Post
+                        </a>
+                         <!-- upload dropdown box -->
+                        <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small" class="header_dropdown">
+    
+                            <!-- notivication header -->
+                            <div class="px-4 py-3 -mx-5 -mt-4 mb-5 border-b">
+                                <h4>Upload Pics or Videos</h4>
+                            </div>
+    
+                            <!-- notification contents -->
+                            <div class="flex justify-center flex-center text-center">
+    
+                                <div class="flex flex-col choose-upload text-center">
+                                   
+                                    <div class="bg-gray-100 border-2 border-dashed flex flex-col h-24 items-center justify-center relative w-full rounded-lg  ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-12">
+                                            <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z" />
+                                            <path d="M9 13h2v5a1 1 0 11-2 0v-5z" />
+                                        </svg>
+                                    </div>
+
+                                    <p class="my-3 leading-6"> Upload pics ..
+                                    </p>
+                                    <div uk-form-custom>
+                                        <input type="file">
+                                        <a href="#" class="button soft-warning small"> Choose pics</a>
+                                    </div>
+    
+                                    <a href="#" class="uk-text-muted mt-3 uk-link"
+                                        uk-toggle="target: .choose-upload ;  animation: uk-animation-slide-right-small, uk-animation-slide-left-medium; queued: true">
+                                        <!--Or Import Video--> </a>
+                                </div>
+    
+                                <div class="uk-flex uk-flex-column choose-upload" hidden>
+                                    <div class="mx-auto flex flex-col h-24 items-center justify-center relative w-full rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-12">
+                                            <path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <p class="my-3 leading-6"> Import videos from YouTube <br> Copy / Paste your video link here </p>
+                                    <form class="uk-grid-small" uk-grid>
+                                        <div class="uk-width-expand">
+                                            <input type="text" class="uk-input uk-form-small  bg-gray-200 " style="box-shadow:none" placeholder="Paste link">
+                                        </div>
+                                        <div class="uk-width-auto"> <button type="submit" class="button soft-warning -ml-2">
+                                                Import </button> </div>
+                                    </form>
+                                    <a href="#" class="uk-text-muted mt-3 uk-link"
+                                        uk-toggle="target: .choose-upload ; animation: uk-animation-slide-left-small, uk-animation-slide-right-medium; queued: true">
+                                        Or Upload Video </a>
+                                </div>
+    
+                            </div>
+                            <div class="px-4 py-3 -mx-5 -mb-4 mt-5 border-t text-sm">
+                                Your File size Must be Maxmium 999MB
+                            </div>
+                        </div>
+                        
+                         <!-- Notification -->
+
+                        <!--<a href="#" class="header-links-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none"><path d="M12 22a2.02 2.02 0 0 1-2.01-2h4a2.02 2.02 0 0 1-.15.78a2.042 2.042 0 0 1-1.44 1.18h-.047A1.922 1.922 0 0 1 12 22zm8-3H4v-2l2-1v-5.5a8.065 8.065 0 0 1 .924-4.06A4.654 4.654 0 0 1 10 4.18V2h4v2.18c2.579.614 4 2.858 4 6.32V16l2 1v2z" fill="currentColor"/></g></svg>
+                        </a>
+                        <div uk-drop="mode: click;offset: 4" class="header_dropdown">
+                            <h4
+                                class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
+                                Notification </h4>
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="{% static 'assets/images/avatars/avatar-1.jpg' %}" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p> <strong class="text-link" >Taiye</strong>  
+                                                <span class="text-link"> is following you  </span>
+                                            </p>
+                                            <span class="time-ago"> 2 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                
+
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>-->
+
+                        <!-- Messages -->
+
+                        <!-- <a href="#" class="header-links-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="0.5em" height="0.5em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="currentColor"><path d="M2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/></g></svg>
+                        </a> -->
+                        <div uk-drop="mode: click;offset: 4" class="header_dropdown">
+                            <h4
+                                class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
+                                Messages </h4>
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="{% static 'assets/images/avatars/avatar-1.jpg' %}" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Taiye </strong> <time> 6:43 PM</time>
+                                            <p> hi tomi </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                
+
+
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>
+
+                        <!-- profile -->
+
+                        <a href="#">
+                            <img src="{{ user_profile.profileimg.url }}" class="header-avatar" alt="">
+                        </a>
+                        <div uk-drop="mode: click;offset:9" class="header_dropdown profile_dropdown border-t">
+                            <ul>
+                                <li><a href="/settings"> Account setting </a> </li>
+                                <!-- <li><a href="explore.html">explore </a> </li> -->
+                                <li><a href="/logout"> Log Out</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+            </form>
+            
+            <div style="margin-left: 250px; margin-right: 250px;">
+                
+                <style>
+                body{margin-top:20px;
+                background-color: #eee;
+                }
+
+                .search-result-categories>li>a {
+                    color: #b6b6b6;
+                    font-weight: 400
+                }
+
+                .search-result-categories>li>a:hover {
+                    background-color: #ddd;
+                    color: #555
+                }
+
+                .search-result-categories>li>a>.glyphicon {
+                    margin-right: 5px
+                }
+
+                .search-result-categories>li>a>.badge {
+                    float: right
+                }
+
+                .search-results-count {
+                    margin-top: 10px
+                }
+
+                .search-result-item {
+                    padding: 20px;
+                    background-color: #fff;
+                    border-radius: 4px
+                }
+
+                .search-result-item:after,
+                .search-result-item:before {
+                    content: " ";
+                    display: table
+                }
+
+                .search-result-item:after {
+                    clear: both
+                }
+
+                .search-result-item .image-link {
+                    display: block;
+                    overflow: hidden;
+                    border-top-left-radius: 4px;
+                    border-bottom-left-radius: 4px
+                }
+
+                @media (min-width:768px) {
+                    .search-result-item .image-link {
+                        display: inline-block;
+                        margin: -20px 0 -20px -20px;
+                        float: left;
+                        width: 200px
+                    }
+                }
+
+                @media (max-width:767px) {
+                    .search-result-item .image-link {
+                        max-height: 200px
+                    }
+                }
+
+                .search-result-item .image {
+                    max-width: 100%
+                }
+
+                .search-result-item .info {
+                    margin-top: 2px;
+                    font-size: 12px;
+                    color: #999
+                }
+
+                .search-result-item .description {
+                    font-size: 13px
+                }
+
+                .search-result-item+.search-result-item {
+                    margin-top: 20px
+                }
+
+                @media (min-width:768px) {
+                    .search-result-item-body {
+                        margin-left: 200px
+                    }
+                }
+
+                .search-result-item-heading {
+                    font-weight: 400
+                }
+
+                .search-result-item-heading>a {
+                    color: #555
+                }
+
+                @media (min-width:768px) {
+                    .search-result-item-heading {
+                        margin: 0
+                    }
+                }
+                </style>
+
+                <div class="container">
+                <div class="row ng-scope">
+                    <div class="col-md-3 col-md-push-9">
+                        <h4>Results For <span class="fw-semi-bold"><b>{{username}}</b></span></h4>
+                        <br>
+                        <!-- <p class="text-muted fs-mini">Listed content is categorized by the following groups:</p> -->
+                        <!-- <ul class="nav nav-pills nav-stacked search-result-categories mt">
+                            <li><a href="#">Friends <span class="badge">34</span></a>
+                            </li>
+                            <li><a href="#">Pages <span class="badge">9</span></a>
+                            </li>
+                            <li><a href="#">Images</a>
+                            </li>
+                            <li><a href="#">Groups</a>
+                            </li>
+                            <li><a href="#">Globals <span class="badge">18</span></a>
+                            </li>
+                        </ul> -->
+                    </div>
+                    <div class="col-md-9 col-md-pull-3">
+                        <!-- <p class="search-results-count">About 94 700 000 (0.39 sec.) results</p> -->
+                        
+                        {% for users in username_profile_list %}
+                        <section class="search-result-item">
+                            <a class="image-link" href="/profile/{{users.user}}"><img class="image" src="{{users.profileimg.url}}">
+                            </a>
+                            <div class="search-result-item-body">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <h4 class="search-result-item-heading"><a href="/profile/{{users.user}}"><b>@{{users.user}}</b></a></h4>
+                                        <p class="info">{{users.location}}</p>
+                                        <p class="description">{{users.bio}}</p>
+                                    </div>
+                                    <!-- <div class="col-sm-3 text-align-center">
+                                        <p class="value3 mt-sm">$9, 700</p>
+                                        <p class="fs-mini text-muted">PER WEEK</p><a class="btn btn-primary btn-info btn-sm" href="#">Learn More</a>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </section>
+                        {% endfor %}
+                        
+                        <!-- <div class="text-align-center">
+                            <ul class="pagination pagination-sm">
+                                <li class="disabled"><a href="#">Prev</a>
+                                </li>
+                                <li class="active"><a href="#">1</a>
+                                </li>
+                                <li><a href="#">2</a>
+                                </li>
+                                <li><a href="#">3</a>
+                                </li>
+                                <li><a href="#">4</a>
+                                </li>
+                                <li><a href="#">5</a>
+                                </li>
+                                <li><a href="#">Next</a>
+                                </li>
+                            </ul>
+                        </div> -->
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+ <!-- Scripts
+    ================================================== -->
+    <script src="{% static 'assets/js/tippy.all.min.js' %}"></script>  
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/uikit.js' %}"></script>
+    <script src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+
+    <script src="{% static '../../unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script>
+</body>
+
+
+</html>
