@@ -9,7 +9,7 @@ import random
 
 # Create your views here.
 
-@login_required(login_url='signin')
+@login_required
 def index(request):
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
@@ -56,7 +56,7 @@ def index(request):
 
     return render(request, 'index.html', {'user_profile': user_profile, 'posts':feed_list, 'suggestions_username_profile_list': suggestions_username_profile_list[:4]})
 
-@login_required(login_url='signin')
+@login_required
 def upload(request):
 
     if request.method == 'POST':
@@ -71,7 +71,7 @@ def upload(request):
     else:
         return redirect('/')
 
-@login_required(login_url='signin')
+@login_required
 def search(request):
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
@@ -93,7 +93,7 @@ def search(request):
         username_profile_list = list(chain(*username_profile_list))
     return render(request, 'search.html', {'user_profile': user_profile, 'username_profile_list': username_profile_list})
 
-@login_required(login_url='signin')
+@login_required
 def like_post(request):
     username = request.user.username
     post_id = request.GET.get('post_id')
@@ -114,7 +114,7 @@ def like_post(request):
         post.save()
         return redirect('/')
 
-@login_required(login_url='signin')
+@login_required
 def profile(request, pk):
     user_object = User.objects.get(username=pk)
     user_profile = Profile.objects.get(user=user_object)
@@ -129,8 +129,8 @@ def profile(request, pk):
     else:
         button_text = 'Follow'
 
-    user_followers = len(FollowersCount.objects.filter(user=pk))
-    user_following = len(FollowersCount.objects.filter(follower=pk))
+    user_followers = FollowersCount.objects.filter(user=pk).count()
+    user_following = FollowersCount.objects.filter(follower=pk).count()
 
     context = {
         'user_object': user_object,
@@ -143,7 +143,7 @@ def profile(request, pk):
     }
     return render(request, 'profile.html', context)
 
-@login_required(login_url='signin')
+@login_required
 def follow(request):
     if request.method == 'POST':
         follower = request.POST['follower']
@@ -160,7 +160,7 @@ def follow(request):
     else:
         return redirect('/')
 
-@login_required(login_url='signin')
+@login_required
 def settings(request):
     user_profile = Profile.objects.get(user=request.user)
 
