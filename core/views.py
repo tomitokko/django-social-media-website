@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.http import HttpResponse
@@ -240,6 +240,12 @@ def signin(request):
 
     else:
         return render(request, 'signin.html')
+  
+@login_required(login_url='signin')
+def delete(request, id):
+    delete_post = get_object_or_404(Post, id=id)
+    delete_post.delete()
+    return redirect('index')
 
 @login_required(login_url='signin')
 def logout(request):

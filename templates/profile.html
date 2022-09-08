@@ -150,6 +150,11 @@
 										<li>
 											<a class="strip" href="{{post.image.url}}" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
 												<img src="{{post.image.url}}" style="height: 250px; width: 300px;" alt=""></a>
+											{% if user_object.username == user.username %}
+												<a href="/delete/{{post.id}}" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
+													<i class="uil-trash-alt mr-1"></i>  Delete Post
+												</a> 
+											{% endif %}
 										</li>
 										{% endfor %}
 										
